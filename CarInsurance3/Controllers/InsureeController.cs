@@ -23,7 +23,7 @@ namespace CarInsurance3.Controllers
         {
             quote += 100m;
         }
-        else if (age > 19 && age <= 25)
+        else if (age >= 19 && age <= 25)
         {
             quote += 50.00m;
         }
@@ -41,21 +41,23 @@ namespace CarInsurance3.Controllers
             quote += 25.00m;
         }
 
-        if (insuree.CarMake.ToLower() == "Porsche")
+        if (insuree.CarMake.ToLower() == "porsche")
         {
             quote += 25.00m;
         }
-        else if (insuree.CarModel.ToLower() == "911 Carrera")
+        if (insuree.CarModel.ToLower() == "911 carrera")
         {
             quote += 25.00m;
         }
 
         if (insuree.DUI == true)
-            {
-                quote *= 1.25m;
-            }
+        {
+            quote *= 1.25m;
+        }
 
-        if (insuree.CoverageType == true)
+            quote += insuree.SpeedingTickets * 10.00m;
+
+            if (insuree.CoverageType == true)
         {
             quote *= 1.5m;
         }
@@ -64,13 +66,19 @@ namespace CarInsurance3.Controllers
 
         private int CalculateAge(DateTime dateOfBirth)
         {
-            throw new NotImplementedException();
+            return DateTime.Now.Year - dateOfBirth.Year;
         }
 
         private Insurance3Entities db = new Insurance3Entities();
 
         // GET: Insuree
         public ActionResult Index()
+        {
+            return View(db.Insurees.ToList());
+        }
+
+        
+        public ActionResult Admin()
         {
             return View(db.Insurees.ToList());
         }
