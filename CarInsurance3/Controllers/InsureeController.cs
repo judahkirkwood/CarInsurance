@@ -36,7 +36,7 @@ namespace CarInsurance3.Controllers
         {
             quote += 25.00m;
         }
-        else if (insuree.CarYear >= 2015)
+        else if (insuree.CarYear > 2015)
         {
             quote += 25.00m;
         }
@@ -50,12 +50,12 @@ namespace CarInsurance3.Controllers
             quote += 25.00m;
         }
 
-        if (insuree.DUI == true)
+            quote += insuree.SpeedingTickets * 10.00m;
+
+            if (insuree.DUI == true)
         {
             quote *= 1.25m;
-        }
-
-            quote += insuree.SpeedingTickets * 10.00m;
+        }   
 
             if (insuree.CoverageType == true)
         {
